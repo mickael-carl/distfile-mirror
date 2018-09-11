@@ -1,0 +1,24 @@
+{{template "header.html" "Files"}}
+
+<h1 class="my-4">File</h1>
+
+<table class="table table-bordered table-sm my-3">
+	<tr><th>URI:</th><td>{{.File.Uri}}</td></tr>
+	<tr><th>Downloaded:</th><td>{{if .File.Present}}yes{{else}}no{{end}}</td></tr>
+	<tr><th>SHA-256:</th><td><span class="digest">{{if .File.Sha256}}{{.File.Sha256}}{{else}}-{{end}}</span></td></tr>
+	<tr><th>Size:</th><td>{{if .File.Size}}{{.File.Size}} bytes{{else}}-{{end}}</td></tr>
+</table>
+
+<h2 class="my-3">Downloading this file</h2>
+
+On the command line, using cURL:
+
+<div class="card">
+  <div class="card-body">
+    <pre style="margin: 0">curl \
+    --proxy {{.ProxyPublicAddress}} \
+    '{{.File.Uri}}'</pre>
+  </div>
+</div>
+
+{{template "footer.html"}}

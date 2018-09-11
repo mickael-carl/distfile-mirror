@@ -1,0 +1,40 @@
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "certificate_generator.go",
+        "container_http_mirror_service.go",
+        "file_http_mirror_service.go",
+        "main.go",
+        "proxy_connection_handler.go",
+        "proxy_connection_hijacker.go",
+        "proxy_connection_listener.go",
+    ],
+    importpath = "github.com/ProdriveTechnologies/distfile-mirror/cmd/dm_web_proxy",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//pkg/schema:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws/credentials:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws/session:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/service/s3:go_default_library",
+        "//vendor/github.com/jinzhu/gorm:go_default_library",
+        "//vendor/github.com/jinzhu/gorm/dialects/postgres:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "dm_web_proxy",
+    embed = [":go_default_library"],
+    pure = "on",
+    visibility = ["//visibility:private"],
+)
+
+container_image(
+    name = "dm_web_proxy_container",
+    entrypoint = ["/dm_web_proxy"],
+    files = [":dm_web_proxy"],
+    visibility = ["//visibility:public"],
+)

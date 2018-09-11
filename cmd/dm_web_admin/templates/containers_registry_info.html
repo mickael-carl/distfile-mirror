@@ -1,0 +1,28 @@
+{{template "header.html" "Containers"}}
+
+<h1 class="my-4">Container registry</h1>
+
+<table class="table table-bordered table-sm my-3">
+	<tr><th class="w-25">Registry:</th><td>{{.Registry.Uri}}</td></tr>
+</table>
+
+<h2 class="my-3">List of repositories in this registry</h2>
+
+<table class="data-table table table-bordered table-hover table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Name</th>
+		</tr>
+	</thead>
+	{{range .Repositories}}
+		<tr class="clickable-row" data-href="../repositories/{{.Id}}">
+			<td>{{.RepositoryName}}</td>
+		</tr>
+	{{end}}
+</table>
+
+<h2 class="my-3">Actions</h2>
+
+<a class="btn btn-primary" href="../create?registry={{.Registry.Uri}}" role="button">Mirror a container image in this registry</a>
+
+{{template "footer.html"}}

@@ -1,0 +1,41 @@
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/ProdriveTechnologies/distfile-mirror/cmd/dm_cron_download_containers",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//pkg/schema:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws/credentials:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/aws/session:go_default_library",
+        "//vendor/github.com/aws/aws-sdk-go/service/s3/s3manager:go_default_library",
+        "//vendor/github.com/docker/distribution/manifest/manifestlist:go_default_library",
+        "//vendor/github.com/docker/distribution/manifest/schema1:go_default_library",
+        "//vendor/github.com/docker/distribution/manifest/schema2:go_default_library",
+        "//vendor/github.com/docker/distribution/reference:go_default_library",
+        "//vendor/github.com/docker/distribution/registry/client:go_default_library",
+        "//vendor/github.com/docker/distribution/registry/client/auth:go_default_library",
+        "//vendor/github.com/docker/distribution/registry/client/transport:go_default_library",
+        "//vendor/github.com/docker/docker/registry:go_default_library",
+        "//vendor/github.com/jinzhu/gorm:go_default_library",
+        "//vendor/github.com/jinzhu/gorm/dialects/postgres:go_default_library",
+        "//vendor/github.com/opencontainers/go-digest:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "dm_cron_download_containers",
+    embed = [":go_default_library"],
+    pure = "on",
+    visibility = ["//visibility:private"],
+)
+
+container_image(
+    name = "dm_cron_download_containers_container",
+    entrypoint = ["/dm_cron_download_containers"],
+    files = [":dm_cron_download_containers"],
+    visibility = ["//visibility:public"],
+)

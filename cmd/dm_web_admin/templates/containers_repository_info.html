@@ -1,0 +1,29 @@
+{{template "header.html" "Containers"}}
+
+<h1 class="my-4">Container repository</h1>
+
+<table class="table table-bordered table-sm my-3">
+	<tr><th class="w-25">Registry:</th><td><a href="../registries/{{.Registry.Id}}">{{.Registry.Uri}}</a></td></tr>
+	<tr><th>Repository:</th><td>{{.Repository.RepositoryName}}</td></tr>
+</table>
+
+<h2 class="my-3">List of images in this repository</h2>
+
+<table class="data-table table table-bordered table-hover table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Digest</th>
+		</tr>
+	</thead>
+	{{range .Images}}
+		<tr class="clickable-row" data-href="../images/{{.Id}}">
+			<td><span class="digest">{{.Digest}}</span></td>
+		</tr>
+	{{end}}
+</table>
+
+<h2 class="my-3">Actions</h2>
+
+<a class="btn btn-primary" href="../create?registry={{.Registry.Uri}}&repository={{.Repository.RepositoryName}}" role="button">Mirror a container image in this repository</a>
+
+{{template "footer.html"}}

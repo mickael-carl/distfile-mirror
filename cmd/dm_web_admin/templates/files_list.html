@@ -1,0 +1,22 @@
+{{template "header.html" "Files"}}
+
+<h1 class="my-4">Files</h1>
+
+<table class="data-table table table-bordered table-hover table-sm">
+	<thead>
+		<tr>
+			<th scope="col">URI</th>
+		</tr>
+	</thead>
+	{{range .Files}}
+		<tr class="clickable-row" data-href="{{.Id}}">
+			<td>{{.Uri}}</td>
+		</tr>
+	{{end}}
+</table>
+
+<h2 class="my-3">Actions</h2>
+
+<a class="btn btn-primary" href="create" role="button">Mirror a file</a>
+
+{{template "footer.html"}}

@@ -1,0 +1,60 @@
+{{template "header.html" "Containers"}}
+{{$root := .}}
+
+<h1 class="my-4">Container image</h1>
+
+<table class="table table-bordered table-sm my-3">
+	<tr><th class="w-25">Registry:</th><td><a href="../registries/{{.Registry.Id}}">{{.Registry.Uri}}</a></td></tr>
+	<tr><th>Repository:</th><td><a href="../repositories/{{.Repository.Id}}">{{.Repository.RepositoryName}}</a></td></tr>
+	<tr><th>Digest:</th><td><span class="digest">{{.Image.Digest}}</span></td></tr>
+	<tr><th>Downloaded:</th><td>{{if .Image.Manifest}}yes{{else}}no{{end}}</td></tr>
+</table>
+
+{{if .Layers}}
+<h2 class="my-3">Layers in this container image</h2>
+
+<table class="data-table table table-bordered table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Digest</th>
+			<th scope="col">Size in bytes</th>
+		</tr>
+	</thead>
+	{{range .Layers}}
+		<tr>
+			<td><span class="digest">{{.Digest}}</span></td>
+			<td>{{.Size}}</td>
+		</tr>
+	{{end}}
+</table>
+{{end}}
+
+{{if .Manifests}}
+<h2 class="my-3">Manifests in this manifest list</h2>
+
+<p>This container image is a manifest list. This means that it is not an
+image that can be executed on its own. Instead, the container runtime
+will download one of the images below based on the operating system and
+hardware architecture of the system.</p>
+
+<table class="data-table table table-bordered table-hover table-sm">
+	<thead>
+		<tr>
+			<th scope="col">Digest</th>
+			<th scope="col">OS</th>
+			<th scope="col">Architecture</th>
+			<th scope="col">Present</th>
+		</tr>
+	</thead>
+	{{range .Manifests}}
+		<tr class="clickable-row" data-href="{{if .ImageId}}{{.ImageId}}{{else}}../create?registry={{$root.Registry.Uri}}&repository={{$root.Repository.RepositoryName}}&digest={{.Digest}}{{end}}">
+			<td><span class="digest">{{.Digest}}</span></td>
+			<td>{{.Platform.OS}}</td>
+			<td>{{.Platform.Architecture}}</td>
+			<td>{{if .ImageId}}yes{{else}}no{{end}}</td>
+		</tr>
+	{{end}}
+</table>
+{{end}}
+
+{{template "footer.html"}}

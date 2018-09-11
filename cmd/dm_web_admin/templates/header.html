@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Distfile Mirror</title>
+		<link href="/static/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/datatables.min.css" rel="stylesheet">
+		<script src="/static/jquery.min.js"></script>
+		<script src="/static/bootstrap.min.js"></script>
+		<script src="/static/datatables.min.js"></script>
+		<style>
+			.digest {
+				font-family: monospace;
+			}
+		</style>
+		<script>
+			$(document).ready( function () {
+				$(".clickable-row").click(function() {
+					window.location = $(this).data("href");
+				});
+
+				$(".data-table").each(function() {
+					$(this).DataTable({
+						"search": {
+							"regex": true
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+ 			<a class="navbar-brand" href="/">Distfile Mirror</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item {{if eq . "Containers"}}active{{end}}">
+						<a class="nav-link" href="/containers/">Containers</a>
+					</li>
+					<li class="nav-item {{if eq . "Files"}}active{{end}}">
+						<a class="nav-link" href="/files/">Files</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container">

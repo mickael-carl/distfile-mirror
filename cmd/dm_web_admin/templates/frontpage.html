@@ -1,0 +1,51 @@
+{{template "header.html" ""}}
+
+<h1 class="my-4">Introduction</h1>
+
+<p>The Distfile Mirror service is a generic tool for mirroring artifacts
+from the Internet, so that they are available internally. The goals for
+having such a service are as follows:</p>
+
+<ul>
+<li>To improve the speed and reliability at which these artifacts are
+available. It allows build processes that automatically download
+third-party artifacts (e.g., <a href="https://bazel.build/">Bazel</a>,
+<a href="https://buildroot.org/">Buildroot</a>) to work efficiently.</li>
+<li>To reduce the amount of Internet bandwidth consumed.</li>
+<li>To provide permanent, durable storage of these artifacts. The
+Internet provides no guarantee that artifacts remain available, nor
+whether they remain unmodified. The intent of this service is to keep
+files stores indefinitely once they are downloaded. Depending on such
+resources directly risks reproducibility of work.</li>
+</ul>
+
+<p><b>As this service provides no forms of authorization, it may only be
+used to mirror artifacts that are publicly available.</b></p>
+
+<h1 class="my-4">Using this service</h1>
+
+<p>The Distfile Mirror service consists of two user visible parts:</p>
+
+<ul>
+<li>The administration page (i.e., the page you are visiting) that can
+be used to explore artifacts that are currently stored. It can also be
+used to set up new artifacts that need to be mirrored. Artifacts may be
+managed by type (e.g., plain files, Docker container images) by choosing
+one of the menu options at the top of this page.</li>
+<li>A HTTP proxy that can be used to access the artifacts stored by this
+service through their original URLs. Any SSL connection established
+through this service uses an auto-generated certificate that is signed
+by the same Certificate Authority.</li>
+</ul>
+
+<p>Many Linux-based applications may be configured to access the HTTP
+proxy by setting the following environment variables:</p>
+
+<div class="card">
+  <div class="card-body">
+    <pre style="margin: 0">export HTTP_PROXY={{.ProxyPublicAddress}}
+export HTTPS_PROXY={{.ProxyPublicAddress}}</pre>
+  </div>
+</div>
+
+{{template "footer.html"}}

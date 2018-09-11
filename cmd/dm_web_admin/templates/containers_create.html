@@ -1,0 +1,27 @@
+{{template "header.html" "Containers"}}
+
+<h1 class="my-4">Create a container image</h1>
+
+<form action="create" method="post" class="my-3">
+	<div class="form-group">
+		<input class="form-control" name="registry" placeholder="Registry" type="text" value="{{.Registry}}">
+		{{if not .Registry}}
+			<small class="form-text text-muted">E.g.: https://registry-1.docker.io/</small>
+		{{end}}
+	</div>
+	<div class="form-group">
+		<input class="form-control" name="repository" placeholder="Repository" type="text" value="{{.Repository}}">
+		{{if not .Repository}}
+			<small class="form-text text-muted">E.g.: library/debian</small>
+		{{end}}
+	</div>
+	<div class="form-group">
+		<input class="form-control" name="digest" placeholder="Digest" type="text" value="{{.Digest}}">
+		{{if not .Digest}}
+			<small class="form-text text-muted">E.g.: sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</small>
+		{{end}}
+	</div>
+	<button type="submit" class="btn btn-primary">Create container image</button>
+</form>
+
+{{template "footer.html"}}

@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "go_default_library",
+    srcs = [
+        "builder.go",
+        "manifest.go",
+    ],
+    importmap = "github.com/ProdriveTechnologies/distfile-mirror/vendor/github.com/docker/distribution/manifest/schema2",
+    importpath = "github.com/docker/distribution/manifest/schema2",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//vendor/github.com/docker/distribution:go_default_library",
+        "//vendor/github.com/docker/distribution/manifest:go_default_library",
+        "//vendor/github.com/opencontainers/go-digest:go_default_library",
+    ],
+)
