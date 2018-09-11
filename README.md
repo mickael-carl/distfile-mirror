@@ -4,7 +4,8 @@ Distfile Mirror is a set of applications that make it easier to mirror
 artifacts from the Internet within an organisation. These artifacts may
 be downloaded from the mirror service through a HTTP proxy that spoofs
 SSL certificates on demand. This allows these original artifacts to be
-fetched under their original URLs.
+fetched under their original URLs, under the condition that the user
+installs a custom CA certificate.
 
 Unlike a general purpose caching proxy, this system does not download
 artifacts from the Internet by simply fetching them on demand. Instead,
@@ -12,10 +13,12 @@ a web UI is offered that can be used to explicitly add URIs of artifacts
 that need to be present. The reason for this is twofold:
 
 - Once an artifact has been declared through the web UI and is
-  downloaded, it will never be purged from storage. This makes Distfile
-  Mirror a useful tool for being able to do reproduce builds of software
-  whose build processes download files (e.g., Bazel, Buildroot). Even if
-  the upstream file is deleted or modified.
+  downloaded, it will never be purged from storage. There is no size
+  limited caching policy. This makes Distfile Mirror a useful tool for
+  being able to reliably do builds of software whose build processes
+  download files (e.g., [Bazel](https://bazel.build/),
+  [Buildroot](https://buildroot.org/)). Even if the upstream file is
+  deleted or modified.
 
 - By requiring users to add artifacts manually, the occasion could be
   used to document what the artifact is being used for. Especially in
