@@ -36,3 +36,7 @@ Right now the service is capable of storing two types of resources:
   This is bad for reproducibility of work.
 
 TODO(edsch): Continue README.
+
+<p align="center">
+  <img src="https://github.com/ProdriveTechnologies/distfile-mirror/raw/master/doc/diagrams/dm-overview.png" alt="Overview of a typical Distfile Mirror deployment"/>
+</p>
