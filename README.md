@@ -35,8 +35,28 @@ Right now the service is capable of storing two types of resources:
   images often overwrite tags to point to newer versions of an image.
   This is bad for reproducibility of work.
 
-TODO(edsch): Continue README.
+Below is a diagram that shows what a typical deployment of Distfile
+Mirror looks like. In this diagram, the arrows indicate the direction in
+which connections are established; not the flow of data.
 
 <p align="center">
   <img src="https://github.com/ProdriveTechnologies/distfile-mirror/raw/master/doc/diagrams/dm-overview.png" alt="Overview of a typical Distfile Mirror deployment"/>
 </p>
+
+## Setting up Distfile Mirror
+
+This repository contains publicly visible targets that build Docker
+container images for the individual components:
+
+    //cmd/dm_web_proxy:dm_web_proxy_container
+    //cmd/dm_web_admin:dm_web_admin_container_with_resources
+    //cmd/dm_cron_download_files:dm_cron_download_files_container
+    //cmd/dm_cron_download_containers:dm_cron_download_containers_container
+
+You can add this repository to an existing workspace and use
+[`container_push()`](https://github.com/bazelbuild/rules_docker#container_push-1)
+rules to push these four container images to a container registry of
+choice.
+
+TODO(edsch): Add Kubernetes files.
+TODO(edsch): Add database schema.
