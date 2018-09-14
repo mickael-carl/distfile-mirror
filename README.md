@@ -3,19 +3,20 @@
 Distfile Mirror is a set of applications that make it easier to mirror
 artifacts from the Internet within an organisation. These artifacts may
 be downloaded from the mirror service through a HTTP proxy that spoofs
-SSL certificates on demand. This allows these original artifacts to be
-fetched under their original URLs, under the condition that the user
-installs a custom CA certificate.
+SSL certificates on demand. This allows these artifacts to be fetched
+under their original URLs, under the condition that the user installs a
+custom root CA certificate.
 
-Unlike a general purpose caching proxy, this system does not download
-artifacts from the Internet by simply fetching them on demand. Instead,
-a web UI is offered that can be used to explicitly add URIs of artifacts
-that need to be present. The reason for this is twofold:
+Unlike a general purpose caching proxy, the Distfile Mirror proxy does
+not download artifacts from the Internet by simply fetching them through
+the proxy. Instead, a web UI is offered that can be used to explicitly
+add URIs of artifacts that need to be present. The reason for this is
+twofold:
 
 - Once an artifact has been declared through the web UI and is
-  downloaded, it will never be purged from storage. There is no size
-  limited caching policy. This makes Distfile Mirror a useful tool for
-  being able to reliably do builds of software whose build processes
+  downloaded, it will never be purged from storage. There is no
+  size-based caching strategy. This makes Distfile Mirror a useful tool
+  for being able to reliably do builds of software whose build processes
   download files (e.g., [Bazel](https://bazel.build/),
   [Buildroot](https://buildroot.org/)). Even if the upstream file is
   deleted or modified.
@@ -23,7 +24,7 @@ that need to be present. The reason for this is twofold:
 - By requiring users to add artifacts manually, the occasion could be
   used to document what the artifact is being used for. Especially in
   larger organisations it is useful to have some bookkeeping of the use
-  of open-source software.
+  of open-source software, e.g., to check for compliance.
 
 Right now the service is capable of storing two types of resources:
 
@@ -41,6 +42,13 @@ which connections are established; not the flow of data.
 
 <p align="center">
   <img src="https://github.com/ProdriveTechnologies/distfile-mirror/raw/master/doc/diagrams/dm-overview.png" alt="Overview of a typical Distfile Mirror deployment"/>
+</p>
+
+And here's a screenshot of what the web UI looks like when accessing the
+details for a file stored within:
+
+<p align="center">
+  <img src="https://github.com/ProdriveTechnologies/distfile-mirror/raw/master/doc/screenshots/webui.png" alt="Details for a file managed by Distfile Mirror"/>
 </p>
 
 ## Setting up Distfile Mirror
