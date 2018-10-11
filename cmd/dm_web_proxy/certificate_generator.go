@@ -60,8 +60,9 @@ func (cg *CertificateGenerator) GetCertificate(clientHelloInfo *tls.ClientHelloI
 	if err != nil {
 		return nil, fmt.Errorf("Failed to generate certificate serial number: %s", err)
 	}
-	notBefore := time.Now()
-	notAfter := notBefore.Add(time.Hour * 24)
+	now := time.Now()
+	notBefore := now.Add(-time.Hour)
+	notAfter := now.Add(time.Hour * 24)
 
 	// Generate certificate and encode it.
 	decodedCertificate, err := x509.CreateCertificate(
