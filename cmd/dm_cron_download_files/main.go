@@ -111,7 +111,7 @@ func main() {
 		log.Printf("Downloading %s", file.Uri)
 
 		// TODO(edsch): Make timeout configurable.
-		ctx, cancel := context.WithTimeout(ctx, 10*time.Minute)
+		ctx, cancel := context.WithTimeout(ctx, time.Hour)
 		checksum, fileSize, err := downloadAndStoreFile(ctx, file.Uri, file.Sha256, s3Uploader)
 		cancel()
 		if err != nil {
