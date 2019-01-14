@@ -14,14 +14,14 @@ go_library(
     deps = [
         "//pkg/schema:go_default_library",
         "//pkg/util:go_default_library",
-        "//vendor/github.com/docker/distribution:go_default_library",
-        "//vendor/github.com/docker/distribution/manifest/manifestlist:go_default_library",
-        "//vendor/github.com/docker/distribution/manifest/schema1:go_default_library",
-        "//vendor/github.com/docker/distribution/manifest/schema2:go_default_library",
-        "//vendor/github.com/gorilla/mux:go_default_library",
-        "//vendor/github.com/jinzhu/gorm:go_default_library",
-        "//vendor/github.com/jinzhu/gorm/dialects/postgres:go_default_library",
-        "//vendor/github.com/prometheus/client_golang/prometheus/promhttp:go_default_library",
+        "@com_github_docker_distribution//:go_default_library",
+        "@com_github_docker_distribution//manifest/manifestlist:go_default_library",
+        "@com_github_docker_distribution//manifest/schema1:go_default_library",
+        "@com_github_docker_distribution//manifest/schema2:go_default_library",
+        "@com_github_gorilla_mux//:go_default_library",
+        "@com_github_jinzhu_gorm//:go_default_library",
+        "@com_github_jinzhu_gorm//dialects/postgres:go_default_library",
+        "@com_github_prometheus_client_golang//prometheus/promhttp:go_default_library",
     ],
 )
 
