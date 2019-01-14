@@ -3,5 +3,4 @@ load("@bazel_gazelle//:def.bzl", "gazelle")
 # gazelle:prefix github.com/ProdriveTechnologies/distfile-mirror
 gazelle(
     name = "gazelle",
-    prefix = "github.com/ProdriveTechnologies/distfile-mirror",
 )
