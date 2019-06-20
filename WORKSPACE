@@ -2,21 +2,24 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_rules_docker",
-    sha256 = "29d109605e0d6f9c892584f07275b8c9260803bf0c6fcb7de2623b2bedc910bd",
-    strip_prefix = "rules_docker-0.5.1",
-    urls = ["https://github.com/bazelbuild/rules_docker/archive/v0.5.1.tar.gz"],
+    sha256 = "aed1c249d4ec8f703edddf35cbe9dfaca0b5f5ea6e4cd9e83e99f3b0d1136c3d",
+    strip_prefix = "rules_docker-0.7.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/archive/v0.7.0.tar.gz"],
 )
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "7be7dc01f1e0afdba6c8eb2b43d2fa01c743be1b9273ab1eaf6c233df078d705",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/0.16.5/rules_go-0.16.5.tar.gz"],
+    urls = [
+        "https://storage.googleapis.com/bazel-mirror/github.com/bazelbuild/rules_go/releases/download/0.18.6/rules_go-0.18.6.tar.gz",
+        "https://github.com/bazelbuild/rules_go/releases/download/0.18.6/rules_go-0.18.6.tar.gz",
+    ],
+    sha256 = "f04d2373bcaf8aa09bccb08a98a57e721306c8f6043a2a0ee610fd6853dcde3d",
 )
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "7949fc6cc17b5b191103e97481cf8889217263acf52e00b560683413af204fcb",
-    urls = ["https://github.com/bazelbuild/bazel-gazelle/releases/download/0.16.0/bazel-gazelle-0.16.0.tar.gz"],
+    sha256 = "3c681998538231a2d24d0c07ed5a7658cb72bfb5fd4bf9911157c0e9ac6a2687",
+    urls = ["https://github.com/bazelbuild/bazel-gazelle/releases/download/0.17.0/bazel-gazelle-0.17.0.tar.gz"],
 )
 
 http_archive(
@@ -27,13 +30,17 @@ http_archive(
 )
 
 load(
-    "@io_bazel_rules_docker//container:container.bzl",
+    "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
 )
 
 container_repositories()
 
-load("@io_bazel_rules_go//go:def.bzl", "go_register_toolchains", "go_rules_dependencies")
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
+)
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 
 go_rules_dependencies()
 
@@ -45,69 +52,69 @@ gazelle_dependencies()
 
 go_repository(
     name = "com_github_gorilla_mux",
-    commit = "08e7f807d38d6a870193019bb439056118661505",
+    commit = "ed099d42384823742bba0bf9a72b53b55c9e2e38",
     importpath = "github.com/gorilla/mux",
 )
 
 go_repository(
     name = "com_github_docker_distribution",
-    commit = "91b0f0559eb6710c574451049f8c71eb9c3952a7",
-    importpath = "github.com/docker/distribution",
     build_extra_args = ["-exclude=vendor"],
+    commit = "79f6bcbe169ad8aa34433c9b1e3b4e38e26ba789",
+    importpath = "github.com/docker/distribution",
 )
 
 go_repository(
     name = "com_github_jinzhu_gorm",
-    commit = "9f1a7f53511168c0567b4b4b4f10ab7d21265174",
+    commit = "01b66011427614f01e84a473b0303c917179f2a0",
     importpath = "github.com/jinzhu/gorm",
 )
 
 go_repository(
     name = "com_github_aws_aws_sdk_go",
-    commit = "9b56194bccedb23d7e753822b44f6b2e69487ff8",
+    commit = "b4ef9e4c9898fde0de7068049129aca9f749c7ab",
     importpath = "github.com/aws/aws-sdk-go",
 )
 
 go_repository(
     name = "com_github_opencontainers_go_digest",
-    commit = "c9281466c8b2f606084ac71339773efd177436e7",
+    commit = "ac19fd6e7483ff933754af248d80be865e543d22",
     importpath = "github.com/opencontainers/go-digest",
 )
 
 go_repository(
     name = "com_github_prometheus_client_golang",
-    commit = "d2ead25884778582e740573999f7b07f47e171b4",
+    commit = "3d8379da8fc2309dd563f593f15a739054c098bc",
     importpath = "github.com/prometheus/client_golang",
 )
 
 go_repository(
     name = "com_github_docker_docker",
-    commit = "ebc0750e9fa657ebf5ea08fdeae3242144e784aa",
-    importpath = "github.com/docker/docker",
     build_extra_args = ["-exclude=vendor"],
+    commit = "384c782721c7d0865b7d40ce7ca402022c690058",
+    importpath = "github.com/docker/docker",
 )
 
 go_repository(
     name = "com_github_jinzhu_inflection",
-    commit = "04140366298a54a039076d798123ffa108fff46c",
+    commit = "f5c5f50e6090ae76a29240b61ae2a90dd810112e",
     importpath = "github.com/jinzhu/inflection",
 )
 
 go_repository(
     name = "com_github_prometheus_client_model",
-    commit = "f287a105a20ec685d797f65cd0ce8fbeaef42da1",
+    commit = "fd36f4220a901265f90734c3183c5f0c91daa0b8",
     importpath = "github.com/prometheus/client_model",
 )
 
 go_repository(
     name = "com_github_prometheus_common",
-    commit = "2998b132700a7d019ff618c06a234b47c1f3f681",
+    commit = "31bed53e4047fd6c510e43a941f90cb31be0972a",
     importpath = "github.com/prometheus/common",
 )
 
 go_repository(
     name = "com_github_lib_pq",
-    commit = "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee",
+    commit = "2ff3cb3adc01768e0a552b3a02575a6df38a9bea",
     importpath = "github.com/lib/pq",
 )
 
@@ -119,13 +126,13 @@ go_repository(
 
 go_repository(
     name = "com_github_prometheus_procfs",
-    commit = "b1a0a9a36d7453ba0f62578b99712f3a6c5f82d1",
+    commit = "f959769dfe3ee5212b9fb905319b8811f12bf7a2",
     importpath = "github.com/prometheus/procfs",
 )
 
 go_repository(
     name = "com_github_beorn7_perks",
-    commit = "3a771d992973f24aa725d07868b467d1ddfceafb",
+    commit = "4b2b341e8d7715fae06375aa633dbb6e91b3fb46",
     importpath = "github.com/beorn7/perks",
 )
 
@@ -137,25 +144,25 @@ go_repository(
 
 go_repository(
     name = "com_github_sirupsen_logrus",
-    commit = "78fb3852d92683dc28da6cc3d5f965100677c27d",
+    commit = "2a22dbedbad1fd454910cd1f44f210ef90c28464",
     importpath = "github.com/sirupsen/logrus",
 )
 
 go_repository(
     name = "com_github_docker_go_connections",
-    commit = "97c2040d34dfae1d1b1275fa3a78dbdd2f41cf7e",
+    commit = "fd1b1942c4d55f7f210a8387e612dc6ffee78ff6",
     importpath = "github.com/docker/go-connections",
 )
 
 go_repository(
     name = "com_github_pkg_errors",
-    commit = "ffb6e22f01932bf7ac35e0bad9be11f01d1c8685",
+    commit = "27936f6d90f9c8e1145f11ed52ffffbfdb9e0af7",
     importpath = "github.com/pkg/errors",
 )
 
 go_repository(
     name = "com_github_opencontainers_image_spec",
-    commit = "e74bb5aed1c876be723e181895359d8dca9b56a6",
+    commit = "da296dcb1e473a9b4e2d148941d7faa9ac8fea3f",
     importpath = "github.com/opencontainers/image-spec",
 )
 
@@ -167,13 +174,13 @@ go_repository(
 
 go_repository(
     name = "org_golang_x_crypto",
-    commit = "ff983b9c42bc9fbf91556e191cc8efb585c16908",
+    commit = "ea8f1a30c4438cc8b13f05538385ad8dc6049b43",
     importpath = "golang.org/x/crypto",
 )
 
 go_repository(
     name = "com_github_docker_go_units",
-    commit = "2fb04c6466a548a03cb009c5569ee1ab1e35398e",
+    commit = "519db1ee28dcc9fd2474ae59fca29a810482bfb1",
     importpath = "github.com/docker/go-units",
 )
 
@@ -187,4 +194,10 @@ go_repository(
     name = "com_github_docker_go_metrics",
     commit = "b84716841b82eab644a0c64fc8b42d480e49add5",
     importpath = "github.com/docker/go-metrics",
+)
+
+go_repository(
+    name = "com_github_morikuni_aec",
+    commit = "39771216ff4c63d11f5e604076f9c45e8be1067b",
+    importpath = "github.com/morikuni/aec",
 )
